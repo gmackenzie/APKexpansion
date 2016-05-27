@@ -17,11 +17,11 @@ package com.google.android.vending.licensing;
  * limitations under the License.
  */
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import java.net.URI;
@@ -375,22 +375,13 @@ public class APKExpansionPolicy implements Policy {
         return false;
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private Map<String, String> decodeExtras(String extras) {
         Map<String, String> results = new HashMap<String, String>();
-        try {
-            URI rawExtras = new URI("?" + extras);
-            List<NameValuePair> extraList = URLEncodedUtils.parse(rawExtras, "UTF-8");
-            for (NameValuePair item : extraList) {
-                String name = item.getName();
-                int i = 0;
-                while (results.containsKey(name)) {
-                    name = item.getName() + ++i;
-                }
-                results.put(name, item.getValue());
-            }
-        } catch (URISyntaxException e) {
-            Log.w(TAG, "Invalid syntax error while decoding extras data from server.");
-        }
+        Uri uri = Uri.parse("?" + extras);
+        for (String itemName : uri.getQueryParameterNames())
+            results.put(itemName, uri.getQueryParameter(itemName));
+
         return results;
     }
 
