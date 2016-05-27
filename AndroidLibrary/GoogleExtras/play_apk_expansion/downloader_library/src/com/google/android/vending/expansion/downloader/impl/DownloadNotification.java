@@ -16,17 +16,17 @@
 
 package com.google.android.vending.expansion.downloader.impl;
 
-import com.android.vending.expansion.downloader.R;
-import com.google.android.vending.expansion.downloader.DownloadProgressInfo;
-import com.google.android.vending.expansion.downloader.DownloaderClientMarshaller;
-import com.google.android.vending.expansion.downloader.Helpers;
-import com.google.android.vending.expansion.downloader.IDownloaderClient;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Messenger;
+
+import com.android.vending.expansion.downloader.R;
+import com.google.android.vending.expansion.downloader.DownloadProgressInfo;
+import com.google.android.vending.expansion.downloader.DownloaderClientMarshaller;
+import com.google.android.vending.expansion.downloader.Helpers;
+import com.google.android.vending.expansion.downloader.IDownloaderClient;
 
 /**
  * This class handles displaying the notification associated with the download
@@ -134,8 +134,8 @@ public class DownloadNotification implements IDownloaderClient {
             mCurrentTitle = mLabel.toString();
             mCurrentNotification.tickerText = mLabel + ": " + mCurrentText;
             mCurrentNotification.icon = iconResource;
-            mCurrentNotification.setLatestEventInfo(mContext, mCurrentTitle, mCurrentText,
-                    mContentIntent);
+            //mCurrentNotification.setLatestEventInfo(mContext, mCurrentTitle, mCurrentText,
+            //        mContentIntent);
             if (ongoingEvent) {
                 mCurrentNotification.flags |= Notification.FLAG_ONGOING_EVENT;
             } else {
@@ -156,7 +156,7 @@ public class DownloadNotification implements IDownloaderClient {
             // we just show the text
             mNotification.tickerText = mCurrentTitle;
             mNotification.icon = android.R.drawable.stat_sys_download;
-            mNotification.setLatestEventInfo(mContext, mLabel, mCurrentText, mContentIntent);
+            // mNotification.setLatestEventInfo(mContext, mLabel, mCurrentText, mContentIntent);
             mCurrentNotification = mNotification;
         } else {
             mCustomNotification.setCurrentBytes(progress.mOverallProgress);

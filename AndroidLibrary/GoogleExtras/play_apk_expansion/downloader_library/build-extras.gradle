@@ -2,3 +2,7 @@ dependencies {
     debugCompile project(path: ':com.intel.xapkreader:library',configuration: "debug")
     releaseCompile project(path: ':com.intel.xapkreader:library',configuration: "release")
  }
+
+android {
+    useLibrary 'org.apache.http.legacy'
+}
